@@ -20,11 +20,10 @@ public class GravityCalculator {
 
         finalPosition = ((0.5 * gravity * (Math.pow(fallingTime,2))) 
                 + (initalPosition*fallingTime) + initalPosition) /fallingTime ;
-         
-        
         
         System.out.println("The object's position after " + fallingTime +
                 "seconds is " + finalPosition + "m.");
+
     }
     
 }
