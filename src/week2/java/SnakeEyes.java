@@ -1,6 +1,8 @@
 
 package week2.java;
 
+import java.util.ArrayList;
+
 /**
  * Simple class that will preform functions recording the results from two dice
  * @author Alex
@@ -96,6 +98,22 @@ public class SnakeEyes {
                 + " over: " + numberOfThrows + " is: " + numberCount;
     }
     
+    public String rollDice(int numberOfThrows, int numberOfDice){
+        int numberCount = 0;
+        output ="";
+        ArrayList<Integer>dice = new ArrayList<>(numberOfDice);
+        
+        for(int i = 0; i < numberOfThrows; i++){
+            output +="For the " + (i+1) + " throw the rolls across " + numberOfDice +
+                        " are: \n";
+            for(int x:dice){
+                x = rollDie();
+                output += x +"\n";
+            }    
+        }
+        return output;
+    }
+    
     /*
     The main method used to test the above class
     */
@@ -115,7 +133,12 @@ public class SnakeEyes {
         */
         for(int i = 0; i < 5; i++){
             System.out.println(die1.rollTwoDice(1));
+            
         }
+        
+        System.out.println(die1.rollDice(5, 10));
+        
+        
     }
     
 }

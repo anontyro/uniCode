@@ -1,8 +1,7 @@
 package week3.java;
 
-import java.io.*; //class import for IO usage
-
-
+import java.io.*; //classes import for IO usage
+import java.util.*;
 
 /**
  * A simple class that reads from a file the number of ice creams sold, 
@@ -13,8 +12,9 @@ import java.io.*; //class import for IO usage
 public class IceCreamSold {
     
     private static int iceCreamSales = 0;
-    private String FavIceCream = "";
     private String[]totalSales;
+    private static ArrayList<String>listOfFlavours = new ArrayList<>(10);
+    private static Map<String,Integer>flavours = new HashMap<>(10);
     
     /**
     * Constructor which takes the filename to be used for the data to be read
@@ -22,10 +22,12 @@ public class IceCreamSold {
     * that may occur from not finding the files
     */
     IceCreamSold(String filename){
+        //try block to setup the IceCreamSold object
         try{
             totalSales = ReadFile(filename);
-            iceCreamSales = totalSales.length;
+            iceCreamSales = totalSales.length;            
         }
+        //if there is an error it will print the message and exit
         catch(IOException e){
             System.err.println(e);
             System.exit(1);
@@ -49,22 +51,40 @@ public class IceCreamSold {
         String fileReading ="";
         String[]sales = null;
 
+        //try block for reading from the user selected file
         try{
             FileReader fin = new FileReader(inFile);
             bin = new BufferedReader(fin);
             String line = bin.readLine();
             while(line != null){
                 fileReading+= line + "\n";
+                
                 line = bin.readLine();
             }
+            //array list populated using the string fileReading
             sales = fileReading.split("\n");
             
+            //add the flavours found into a map and arraylist to reference later
+            for(int i = 0; i < sales.length;i++){
+                int freq = 0;
+                Integer testValue = flavours.get(sales[i]);
+                if(testValue==null){
+                    freq = 1;
+                    flavours.put(sales[i], freq);
+                    listOfFlavours.add(sales[i]);
+                }
+                else{
+                    freq = testValue+1;
+                    flavours.put(sales[i], freq);
+                }
+            }
             return sales;
-   
         }
+        //what will happen if the file cannot be accessed
         catch(IOException e){
             System.err.println(e.getMessage());
         }
+        //no matter what always do this
         finally{
             if(bin !=null){bin.close();}
         }
@@ -86,8 +106,8 @@ public class IceCreamSold {
     }
     
     /**
-     * 
-     * @return 
+     * This method will return the total number of sales recorded
+     * @return int of the total number of sales recorded
      */
     public int numberOfSales(){
         
@@ -95,12 +115,14 @@ public class IceCreamSold {
     }
     
     /**
-     * 
-     * @param icecream
-     * @return 
+     * This method accepts one parameter to check how many ice cream has been 
+     * sold of the user entered item
+     * @param icecream string which will represent one of the ice cream
+     * flavours from the list
+     * @return returns an int of the total number of ice creams that match the 
+     * user defined parameter
      */
     public int TypeOfIceCreamSold(String icecream){
-        String output ="";
         int numberSold = checkHowMany(icecream);
         
         return numberSold;
@@ -120,13 +142,14 @@ public class IceCreamSold {
      * calls a private method that checks how many of this icecream have been sold
      * it runs through the String array and returns an int value
      * @param icecream the string name of the type of ice cream
-     * @return float for what percentage of this ice cream has been sold
+     * @return float for what percentage of this ice cream has been sold will return
+     * zero if none
      */
     public float percentIceSale(String icecream){
         int sales = checkHowMany(icecream);
         int totalSales = getTotalSales();
         
-        if(sales ==0){
+        if(sales ==0){ //to prevent any unexpected issue will retun zero if none
             return 0;
         }
         
@@ -142,8 +165,22 @@ public class IceCreamSold {
                 numberSold++;
             }
         }
-        
         return numberSold; //returns an int value of how many
+    }
+    
+    /**
+     * This method takes no variables and will output a list of each ice cream sold
+     * and how many is sold in each catagory
+     * @return String with the flavour and sales on each line
+     */
+    public String TotalFlavourSales(){
+        
+        String output = "Sales broken down by category: \n";
+        
+        for(String x:listOfFlavours){
+            output += x + " sales: " + flavours.get(x) + "\n";
+        }    
+        return output;
     }
     
     /**
@@ -155,11 +192,9 @@ public class IceCreamSold {
     @Override
     public String toString(){
         String output = "";
-        output += "The total sales are: \n" + getSales() +"\n"
+        output += TotalFlavourSales() +"\n"
                 + "The total number of sales are: " + numberOfSales() +"\n"
-                ;
-        
-        
+                ;       
         return output;
     }
     
@@ -174,14 +209,13 @@ public class IceCreamSold {
     public String toString(String icecream){
         String output ="";
         
-        output += "The total sales are: \n" + getSales() +"\n"
+        output += TotalFlavourSales() +"\n"
                 + "The total number of sales are: " +numberOfSales() + "\n"
                 + "The number of " + icecream + " sold is: " + TypeOfIceCreamSold(icecream) + "\n"
                 +"The percentage of " + icecream + " sold is: " + percentIceSale(icecream) +"%";
         
         return output;
     }
-    
     
     //main test class to ensure everything is working and run the above class
     public static void main(String[]args){
