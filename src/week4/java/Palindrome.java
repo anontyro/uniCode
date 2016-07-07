@@ -156,7 +156,7 @@ public class Palindrome {
         return output;
     }
     
-    // main method to test the Palindrome class
+    // main method to test the Palindrome class and runs some test code
     public static void main(String[]args){
         System.out.println(Palindrome.reverse("hello"));
         System.out.println(Palindrome.isAPalindrome("Hello"));
