@@ -102,7 +102,7 @@ public class Palindrome {
     private static String naturalise(String x){
         
         x = x.toLowerCase();
-        x = x.replace(" ", "");
+        x = x.replaceAll("[^A-Za-z]", ""); //using a simple regex statment to remove anything not A-Z upper and lower case
         
         return x;
     }
@@ -158,10 +158,7 @@ public class Palindrome {
     
     // main method to test the Palindrome class and runs some test code
     public static void main(String[]args){
-        System.out.println(Palindrome.reverse("hello"));
-        System.out.println(Palindrome.isAPalindrome("Hello"));
-        System.out.println(Palindrome.isAPalindrome("Han nah"));
-        
+    
         Palindrome pal = new Palindrome();
     }
 }
