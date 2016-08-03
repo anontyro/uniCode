@@ -14,6 +14,7 @@ public class Box {
     public double width;
     public double height;
     public double depth;
+    public double weight;
 
     // This is an empty constructor
     public Box() {
@@ -25,9 +26,20 @@ public class Box {
         height = h;
         depth = d;
     }
+    
+       Box(double w, double h, double d, double k){
+       width = w;
+       height = h;
+       depth = d;
+       weight = k;
+   }
 
     public void getVolume() {
         System.out.println("Volume is : " + width * height * depth);
     }
+    
+       void calculateWeight() {
+        System.out.println("Weight is : " + width * height * depth * weight + " pounds\n");
+   }
     
 }
