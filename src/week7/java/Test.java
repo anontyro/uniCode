@@ -12,10 +12,10 @@ package week7.java;
 public class Test {
 
     public static void main(String[] args) {
-        
+
         //create first object
         SquareMatrix sqMx = new SquareMatrix(3, 3);
-        int[] row = {10, 12, 11};
+        int[] row = {10, 20, 11};
         int[] row1 = {9, 8, 31};
         int[] row2 = {2, 16, 24};
         sqMx.addRow(0, row);
@@ -23,8 +23,8 @@ public class Test {
         sqMx.addRow(2, row2);
 
         System.out.println(sqMx.toString());
-        System.out.println("Second Diagonal: " +sqMx.SecondDiagonal());
-        
+        System.out.println("Second Diagonal: " + sqMx.SecondDiagonal() + "\n");
+
         //create second object
         SquareMatrix sqMx2 = new SquareMatrix(4, 4);
         int[] rowX = {41, 19, 1, 8};
@@ -38,9 +38,9 @@ public class Test {
         sqMx2.addRow(3, rowW);
 
         System.out.println(sqMx2.toString());
-        System.out.println("Second Diagonal: " + sqMx2.SecondDiagonal());
-        
+        System.out.println("Second Diagonal: " + sqMx2.SecondDiagonal() + "\n");
+
         //create thrid object
-        SquareMatrix sqMx3 = new SquareMatrix(4,6);
+        SquareMatrix sqMx3 = new SquareMatrix(4, 6);
     }
 }
